@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="test.css">
+    </head>
+    <body>
+        <div class="container">
+            <!-- <button class="Gmail-btn"><img src="gmail_icon.png" class="Gmail-btn-img"></button> -->
+            <!-- <a href="https://mail.google.com/" class="Gmail-btn"><img src="gmail_icon.png" class="Gmail-btn-img"></a> -->
+            <div id="add-task-container">
+                <input type="text" placeholder="Enter Task" id="input-task">
+                <button id="add-task">+</button>
+            </div>
+
+            <div id="task-container"></div>
+        </div>
+    </body>
+    <script>
+        const inputTask = document.getElementById("input-task");
+        const addTask = document.getElementById("add-task");
+        const taskContainer = document.getElementById("task-container");
+        addTask.addEventListener('click', function(){
+            console.log("click")
+            // let task = document.createElement("div");
+            // task.classList.add('task');
+
+
+            let app = document.createElement("a");
+            app.classList.add("app");
+            app.href = `${inputTask.value}`
+            // app.innerText = `${inputTask.value}`;
+            // task.appendChild(app)
+
+            let image = document.createElement("img")
+            image.classList.add("Gmail-btn-img")
+            image.src = "gmail_icon.png"
+            app.appendChild(image)
+
+
+            taskContainer.appendChild(app)
+
+            // taskContainer.appendChild(task)
+
+
+        });
+
+    </script>
+</html>
