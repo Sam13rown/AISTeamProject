@@ -3,7 +3,15 @@
         <link rel="stylesheet" href="organizer.css">
     </head>
     <body>
-        <div class="container">
+        <div id="link-container">
+            <div id="add-link-container">
+                <input type="text" placeholder="Enter Link" id="input-link">
+                <button id="add-link">+</button>
+            </div>
+
+            <div id="app-container"></div>
+        </div>
+        <div id="todo-container">
             <div id="add-task-container">
                 <input type="text" placeholder="Enter Task" id="input-task">
                 <button id="add-task">+</button>
@@ -13,13 +21,14 @@
         </div>
     </body>
     <script>
-        const inputTask = document.getElementById("input-task");
-        const addTask = document.getElementById("add-task");
-        const taskContainer = document.getElementById("task-container");
-        addTask.addEventListener('click', function(){
+        // Adding links
+        const inputLink = document.getElementById("input-link");
+        const addLink = document.getElementById("add-link");
+        const appContainer = document.getElementById("app-container");
+        addLink.addEventListener('click', function(){
             let app = document.createElement("a");
             app.classList.add("app");
-            app.href = `${inputTask.value}`
+            app.href = `${inputLink.value}`
 
             let image = document.createElement("img")
             image.classList.add("Gmail-btn-img")
@@ -27,9 +36,50 @@
             app.appendChild(image)
 
 
-            taskContainer.appendChild(app)
+            appContainer.appendChild(app)
 
 
+        });
+
+        // Adding tasks
+        const inputTask = document.getElementById("input-task");
+        const addTask = document.getElementById("add-task");
+        const taskContainer = document.getElementById("task-container");
+        addTask.addEventListener('click', function(){
+            let task = document.createElement("div");
+            task.classList.add('task');
+
+            let li = document.createElement('li');
+            li.innerText = `${inputTask.value}`;
+            task.appendChild(li);
+
+            let checkButton = document.createElement("button");
+            checkButton.innerHTML = '&#10003';
+            checkButton.classList.add('check-button');
+            task.appendChild(checkButton);
+
+            let deleteButton = document.createElement("button");
+            deleteButton.innerHTML = '&#10005';
+            deleteButton.classList.add('delete-button');
+            task.appendChild(deleteButton);
+
+            if(inputTask.value == ""){
+                alert('Please enter a task');
+            }
+            else{
+                console.log("append");
+                taskContainer.appendChild(task);
+            }
+
+            inputTask.value = "";
+
+            checkButton.addEventListener('click', function(){
+                li.innerHTML = li.innerText.strike();
+            });
+
+            deleteButton.addEventListener('click', function(){
+                taskContainer.removeChild(task);
+            });
         });
 
     </script>
