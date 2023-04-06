@@ -4,7 +4,7 @@ body{
 
 /* Link to apps */
 #link-container{
-    background-color: black;
+    /* background-color: black; */
     width: 370px;
     height: 50vh;
     position: absolute;
@@ -59,7 +59,7 @@ body{
 
 /* Todo list */
 #todo-container{
-    background-color: black;
+    /* background-color: black; */
     width: 370px;
     height: 50vh;
     position: absolute;
