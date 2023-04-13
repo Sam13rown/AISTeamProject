@@ -15,6 +15,7 @@
                 </div>
                 
                 <button id="add-link">+</button>
+                <button id="toggle-delete">Link</button>
             </div>
 
             <div id="app-container"></div>
@@ -29,12 +30,15 @@
             <div id="task-container"></div>
         </div>
         <!-- calendar -->
+        <!-- <button id="show-calendar-btn"><img src="https://p7.hiclipart.com/preview/892/187/629/solar-calendar-symbol-computer-icons-encapsulated-postscript-calendar-icon.jpg" width="50px"></button> -->
+        <img id="show-calendar-btn" src="https://media.istockphoto.com/id/1149076379/vector/calendar-flat-icon-pixel-perfect-for-mobile-and-web.jpg?s=612x612&w=0&k=20&c=dZ6WcTsLAS3JKPR07fxl2-OwRcuaEHF2LqO9Y9ZdLLo=" width="100px">
         <div id="container">
             <div id="header">
               <div id="monthDisplay"></div>
               <div>
                 <button id="backButton">Back</button>
                 <button id="nextButton">Next</button>
+                <button id="close-calendar-btn">X</button>
               </div>
             </div>
       
@@ -77,6 +81,7 @@
         const addLink = document.getElementById("add-link");
         const appContainer = document.getElementById("app-container");
         const inputImg = document.getElementById("input-img");
+        const toggleDelete = document.getElementById("toggle-delete");
 
         let apps = localStorage.getItem('apps') ? JSON.parse(localStorage.getItem('apps')) : [];
 
@@ -85,15 +90,36 @@
         console.log(apps);
 
         let deleting = false;
+        toggleDelete.addEventListener('click', () =>{
+            if(deleting){
+                deleting = false;
+                toggleDelete.innerText = "Link";
+                console.log(deleting);
+            }
+            else{
+                deleting = true;
+                toggleDelete.innerText = "Delete";
+                console.log(deleting);
+            }
+        });
+        
 
         for(savedApp of apps){
             let app = document.createElement("a");
             
             app.classList.add("app");
             app.href = savedApp.href;
+            app.addEventListener('click', function(){
+                if(deleting){
+                    apps = apps.filter(e => e.href != app.href);
+                    localStorage.setItem('apps', JSON.stringify(apps));
+                    app.href = ""
+                    app.remove()
+                }
+            });
 
             let image = document.createElement("img");
-            image.classList.add("Gmail-btn-img");
+            image.classList.add("app-img");
             image.src = savedApp.img;
             app.appendChild(image);
 
@@ -106,14 +132,16 @@
             app.href = inputLink.value;
             inputLink.value = "";
             app.addEventListener('click', function(){
-                apps = apps.filter(e => e.href != app.href);
-                localStorage.setItem('apps', JSON.stringify(apps));
-                app.href = " "
-                app.remove()
-            })
+                if(deleting){
+                    apps = apps.filter(e => e.href != app.href);
+                    localStorage.setItem('apps', JSON.stringify(apps));
+                    app.href = ""
+                    app.remove()
+                }
+            });
 
             let image = document.createElement("img");
-            image.classList.add("Gmail-btn-img");
+            image.classList.add("app-img");
             image.src = inputImg.value;
             inputImg.value = "";
             app.appendChild(image);
@@ -182,13 +210,24 @@
         let events = localStorage.getItem('events') ? JSON.parse(localStorage.getItem('events')) : [];
 
         const calendar = document.getElementById('calendar');
+        const container = document.getElementById('container');
         const newEventModal = document.getElementById('newEventModal');
         const deleteEventModal = document.getElementById('deleteEventModal');
         const backDrop = document.getElementById('modalBackDrop');
         const eventTitleInput = document.getElementById('eventTitleInput');
         const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-        function openModal(date) {
+        const showBtn = document.getElementById('show-calendar-btn').addEventListener('click', () => {
+            container.style.display = 'block';
+            backDrop.style.display = 'block';
+        });
+
+        const closeBtn = document.getElementById('close-calendar-btn').addEventListener('click', () =>{
+            container.style.display = 'none';
+            backDrop.style.display = 'none';
+        });
+
+        function openDay(date) {
         clicked = date;
 
         const eventForDay = events.find(e => e.date === clicked);
@@ -200,7 +239,7 @@
             newEventModal.style.display = 'block';
         }
 
-        backDrop.style.display = 'block';
+        // backDrop.style.display = 'block';
         }
 
         function load() {
@@ -251,7 +290,7 @@
                 daySquare.appendChild(eventDiv);
             }
 
-            daySquare.addEventListener('click', () => openModal(dayString));
+            daySquare.addEventListener('click', () => openDay(dayString));
             } else {
             daySquare.classList.add('padding');
             }
@@ -264,7 +303,7 @@
         eventTitleInput.classList.remove('error');
         newEventModal.style.display = 'none';
         deleteEventModal.style.display = 'none';
-        backDrop.style.display = 'none';
+        // backDrop.style.display = 'none';
         eventTitleInput.value = '';
         clicked = null;
         load();
