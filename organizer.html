@@ -9,7 +9,11 @@
         <!-- Links/Apps -->
         <div id="link-container">
             <div id="add-link-container">
-                <input type="text" placeholder="Enter Link" id="input-link">
+                <div id="link-input-container">
+                    <input type="text" placeholder="Enter Link" id="input-link" class="input">
+                    <input type="text" placeholder="Enter Image URL" id="input-img" class="input">
+                </div>
+                
                 <button id="add-link">+</button>
             </div>
 
@@ -18,11 +22,8 @@
         <!-- Todo List -->
         <div id="todo-container">
             <div id="add-task-container">
-                <input type="text" placeholder="Enter Task" id="input-task">
+                <input type="text" placeholder="Enter Task" id="input-task" class="input">
                 <button id="add-task">+</button>
-            </div>
-            <div id="add-img-container">
-                <input type="text" placeholder="Enter Image URL" id="input-img">
             </div>
 
             <div id="task-container"></div>
@@ -76,6 +77,24 @@
         const addLink = document.getElementById("add-link");
         const appContainer = document.getElementById("app-container");
         const inputImg = document.getElementById("input-img");
+
+        let apps = localStorage.getItem('apps') ? JSON.parse(localStorage.getItem('apps')) : [];
+
+        for(savedApp of apps){
+            let app = document.createElement("a");
+            app.classList.add("app");
+            app.href = savedApp.href;
+            console.log(savedApp.href);
+
+            let image = document.createElement("img");
+            image.classList.add("Gmail-btn-img");
+            image.src = savedApp.img;
+            app.appendChild(image);
+            console.log(savedApp.img)
+
+            appContainer.appendChild(app);
+        }
+
         addLink.addEventListener('click', function(){
             let app = document.createElement("a");
             app.classList.add("app");
@@ -87,6 +106,14 @@
             image.src = inputImg.value;
             inputImg.value = "";
             app.appendChild(image);
+
+            // Add code here to save as json href:link, image:url
+            apps.push({
+                href: app.href,
+                img: image.src
+            });
+
+            localStorage.setItem('apps', JSON.stringify(apps));
 
 
             appContainer.appendChild(app);

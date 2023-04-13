@@ -15,6 +15,14 @@
     font-family: 'Courier New', Courier, monospace;
 }
 
+.input{
+    flex: 5;
+    margin-right: 10px;
+    border-radius: 10px;
+    padding: 5px;
+    font-size: 16px;
+}
+
 /* Link to apps */
 #link-container{
     /* background-color: black; */
@@ -35,12 +43,15 @@
     margin-bottom: 20px;
 }
 
-#input-link{
+/* #input-link{
     flex: 5;
     margin-right: 10px;
     border-radius: 10px;
     padding: 5px;
     font-size: 16px;
+} */
+#link-input-container{
+    flex: 5;
 }
 
 #add-link{
@@ -50,6 +61,8 @@
     color: green;
     border: 1px solid green;
     border-radius: 5px;
+    height: 35px;
+    align-self: center;
 }
 
 #add-link:hover{
@@ -89,13 +102,13 @@
     margin-bottom: 20px;
 }
 
-#input-task{
+/* #input-task{
     flex: 5;
     margin-right: 10px;
     border-radius: 10px;
     padding: 5px;
     font-size: 16px;
-}
+} */
 
 #add-task{
     flex: 1;
