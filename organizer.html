@@ -21,6 +21,9 @@
                 <input type="text" placeholder="Enter Task" id="input-task">
                 <button id="add-task">+</button>
             </div>
+            <div id="add-img-container">
+                <input type="text" placeholder="Enter Image URL" id="input-img">
+            </div>
 
             <div id="task-container"></div>
         </div>
@@ -72,18 +75,21 @@
         const inputLink = document.getElementById("input-link");
         const addLink = document.getElementById("add-link");
         const appContainer = document.getElementById("app-container");
+        const inputImg = document.getElementById("input-img");
         addLink.addEventListener('click', function(){
             let app = document.createElement("a");
             app.classList.add("app");
-            app.href = `${inputLink.value}`
+            app.href = inputLink.value;
+            inputLink.value = "";
 
-            let image = document.createElement("img")
-            image.classList.add("Gmail-btn-img")
-            image.src = "gmail_icon.png"
-            app.appendChild(image)
+            let image = document.createElement("img");
+            image.classList.add("Gmail-btn-img");
+            image.src = inputImg.value;
+            inputImg.value = "";
+            app.appendChild(image);
 
 
-            appContainer.appendChild(app)
+            appContainer.appendChild(app);
 
 
         });       
