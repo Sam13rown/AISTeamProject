@@ -80,17 +80,22 @@
 
         let apps = localStorage.getItem('apps') ? JSON.parse(localStorage.getItem('apps')) : [];
 
+        // localStorage.clear()
+        console.log(localStorage);
+        console.log(apps);
+
+        let deleting = false;
+
         for(savedApp of apps){
             let app = document.createElement("a");
+            
             app.classList.add("app");
             app.href = savedApp.href;
-            console.log(savedApp.href);
 
             let image = document.createElement("img");
             image.classList.add("Gmail-btn-img");
             image.src = savedApp.img;
             app.appendChild(image);
-            console.log(savedApp.img)
 
             appContainer.appendChild(app);
         }
@@ -100,6 +105,12 @@
             app.classList.add("app");
             app.href = inputLink.value;
             inputLink.value = "";
+            app.addEventListener('click', function(){
+                apps = apps.filter(e => e.href != app.href);
+                localStorage.setItem('apps', JSON.stringify(apps));
+                app.href = " "
+                app.remove()
+            })
 
             let image = document.createElement("img");
             image.classList.add("Gmail-btn-img");
@@ -117,6 +128,7 @@
 
 
             appContainer.appendChild(app);
+
 
 
         });       
