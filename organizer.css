@@ -61,9 +61,16 @@
     color: white;
 }
 
+.app{
+    background: transparent;
+    border: 0;
+    outline: none;
+    width: 60px;
+    margin: 5px;
+}
 .app-img{
     width: 50px;
-    padding: 5px;
+    /* padding: 5px; */
 }
 
 

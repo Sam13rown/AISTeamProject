@@ -30,7 +30,7 @@
             <div id="task-container"></div>
         </div>
         <!-- calendar -->
-        <img id="show-calendar-btn" src="https://media.istockphoto.com/id/1149076379/vector/calendar-flat-icon-pixel-perfect-for-mobile-and-web.jpg?s=612x612&w=0&k=20&c=dZ6WcTsLAS3JKPR07fxl2-OwRcuaEHF2LqO9Y9ZdLLo=" width="150px">
+        <img id="show-calendar-btn" src="https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/76494/calendar-clipart-xl.png" width="100px">
         <div id="container">
             <div id="header">
               <div id="monthDisplay"></div>
@@ -103,17 +103,43 @@
         });
         
 
+        // for(savedApp of apps){
+        //     let app = document.createElement("a");
+            
+        //     app.classList.add("app");
+        //     app.href = savedApp.href;
+        //     app.addEventListener('click', function(){
+        //         if(deleting){
+        //             apps = apps.filter(e => e.href != app.href);
+        //             localStorage.setItem('apps', JSON.stringify(apps));
+        //             app.href = ""
+        //             app.remove()
+        //         }
+        //     });
+
+        //     let image = document.createElement("img");
+        //     image.classList.add("app-img");
+        //     image.src = savedApp.img;
+        //     app.appendChild(image);
+
+        //     appContainer.appendChild(app);
+        // }
+
         for(savedApp of apps){
-            let app = document.createElement("a");
+            let app = document.createElement("button");
             
             app.classList.add("app");
-            app.href = savedApp.href;
+            let link = savedApp.href;
             app.addEventListener('click', function(){
                 if(deleting){
-                    apps = apps.filter(e => e.href != app.href);
+                    apps = apps.filter(e => e.href != link);
                     localStorage.setItem('apps', JSON.stringify(apps));
-                    app.href = ""
+                    console.log(localStorage);
+                    console.log(apps);
                     app.remove()
+                }
+                else{
+                    window.location = link;
                 }
             });
 
@@ -126,7 +152,20 @@
         }
 
         addLink.addEventListener('click', function(){
-            let app = document.createElement("a");
+            // let app = document.createElement("a");
+            // app.classList.add("app");
+            // app.href = inputLink.value;
+            // inputLink.value = "";
+            // app.addEventListener('click', function(){
+            //     if(deleting){
+            //         apps = apps.filter(e => e.href != app.href);
+            //         localStorage.setItem('apps', JSON.stringify(apps));
+            //         app.href = ""
+            //         app.remove()
+            //     }
+            // });
+
+            let app = document.createElement("button");
             app.classList.add("app");
             app.href = inputLink.value;
             inputLink.value = "";
@@ -134,8 +173,12 @@
                 if(deleting){
                     apps = apps.filter(e => e.href != app.href);
                     localStorage.setItem('apps', JSON.stringify(apps));
-                    app.href = ""
-                    app.remove()
+                    console.log(localStorage);
+                    console.log(apps);
+                    app.remove();
+                }
+                else{
+                    window.location = app.href;
                 }
             });
 
