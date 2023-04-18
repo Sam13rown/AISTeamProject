@@ -95,6 +95,6 @@ addTask.addEventListener('click', function(){
     inputTask.value = "";
 
     deleteButton.addEventListener('click', function(){
-        taskContainer.removeChild(task);
+        taskContainer.removeChild(taskBox);
     });
 });
