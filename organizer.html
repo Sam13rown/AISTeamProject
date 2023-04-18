@@ -101,29 +101,6 @@
                 console.log(deleting);
             }
         });
-        
-
-        // for(savedApp of apps){
-        //     let app = document.createElement("a");
-            
-        //     app.classList.add("app");
-        //     app.href = savedApp.href;
-        //     app.addEventListener('click', function(){
-        //         if(deleting){
-        //             apps = apps.filter(e => e.href != app.href);
-        //             localStorage.setItem('apps', JSON.stringify(apps));
-        //             app.href = ""
-        //             app.remove()
-        //         }
-        //     });
-
-        //     let image = document.createElement("img");
-        //     image.classList.add("app-img");
-        //     image.src = savedApp.img;
-        //     app.appendChild(image);
-
-        //     appContainer.appendChild(app);
-        // }
 
         for(savedApp of apps){
             let app = document.createElement("button");
@@ -152,18 +129,17 @@
         }
 
         addLink.addEventListener('click', function(){
-            // let app = document.createElement("a");
-            // app.classList.add("app");
-            // app.href = inputLink.value;
-            // inputLink.value = "";
-            // app.addEventListener('click', function(){
-            //     if(deleting){
-            //         apps = apps.filter(e => e.href != app.href);
-            //         localStorage.setItem('apps', JSON.stringify(apps));
-            //         app.href = ""
-            //         app.remove()
-            //     }
-            // });
+            // Check if valid URLS
+            if(!(isValidUrl(inputLink.value))){
+                alert("The website link you entered is not valid!");
+                inputLink.value = "";
+                return
+            }
+            if(!(isValidUrl(inputImg.value))){
+                alert("The image url you entered is not valid!");
+                inputImg.value = "";
+                return
+            }
 
             let app = document.createElement("button");
             app.classList.add("app");
@@ -199,6 +175,16 @@
 
             appContainer.appendChild(app);
 
+            function isValidUrl(string) {
+                let url;
+                try {
+                    url = new URL(string);
+                } catch (_) {
+                    return false;
+                }
+                return true;
+            }
+
 
 
         });       
@@ -208,9 +194,63 @@
         const inputTask = document.getElementById("input-task");
         const addTask = document.getElementById("add-task");
         const taskContainer = document.getElementById("task-container");
+
+        let tasks = localStorage.getItem('tasks') ? JSON.parse(localStorage.getItem('tasks')) : [];
+
+        for(savedTask of tasks){
+            console.log(savedTask);
+            let task = savedTask.task;
+            let striked = savedTask.striked;
+            let taskBox = document.createElement("div");
+            taskBox.classList.add('task');
+
+            let li = document.createElement('li');
+            li.innerText = task;
+            if(striked){
+                li.innerHTML = li.innerText.strike();
+            }
+            taskBox.appendChild(li);
+
+            let checkButton = document.createElement("button");
+            checkButton.innerHTML = '&#10003';
+            checkButton.classList.add('check-button');
+            taskBox.appendChild(checkButton);
+
+            let deleteButton = document.createElement("button");
+            deleteButton.innerHTML = '&#10005';
+            deleteButton.classList.add('delete-button');
+            taskBox.appendChild(deleteButton);
+
+            taskContainer.appendChild(taskBox);
+
+            checkButton.addEventListener('click', function(){
+                li.innerHTML = li.innerText.strike();
+                for(savedTask of tasks){
+                    if(savedTask.task === task){
+                        savedTask.striked = true;
+                        localStorage.setItem('tasks', JSON.stringify(tasks));
+                    }
+                }
+            });
+
+            deleteButton.addEventListener('click', function(){
+                tasks = tasks.filter(e => e.task != task);
+                localStorage.setItem('tasks', JSON.stringify(tasks));
+                taskContainer.removeChild(taskBox);
+            });
+        }
+
+
         addTask.addEventListener('click', function(){
             let task = document.createElement("div");
             task.classList.add('task');
+
+            tasks.push({
+                task:inputTask.value,
+                striked:false
+            });
+
+            localStorage.setItem('tasks', JSON.stringify(tasks));
 
             let li = document.createElement('li');
             li.innerText = `${inputTask.value}`;
@@ -238,6 +278,12 @@
 
             checkButton.addEventListener('click', function(){
                 li.innerHTML = li.innerText.strike();
+                for(savedTask of tasks){
+                    if(savedTask.task === task){
+                        savedTask.striked = true;
+                        localStorage.setItem('tasks', JSON.stringify(tasks));
+                    }
+                }
             });
 
             deleteButton.addEventListener('click', function(){
