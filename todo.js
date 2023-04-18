@@ -4,6 +4,7 @@ const taskContainer = document.getElementById("task-container");
 
 let tasks = localStorage.getItem('tasks') ? JSON.parse(localStorage.getItem('tasks')) : [];
 
+// Load in saved tasks
 for(savedTask of tasks){
     console.log(savedTask);
     let task = savedTask.task;
@@ -95,6 +96,8 @@ addTask.addEventListener('click', function(){
     inputTask.value = "";
 
     deleteButton.addEventListener('click', function(){
+        tasks = tasks.filter(e => e.task != task);
+        localStorage.setItem('tasks', JSON.stringify(tasks));
         taskContainer.removeChild(taskBox);
     });
 });

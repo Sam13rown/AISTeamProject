@@ -23,6 +23,7 @@ toggleDelete.addEventListener('click', () =>{
     }
 });
 
+//Load in saved apps
 for(savedApp of apps){
     let app = document.createElement("button");
     
