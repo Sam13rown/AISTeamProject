@@ -4,10 +4,10 @@ let events = localStorage.getItem('events') ? JSON.parse(localStorage.getItem('e
 
 const calendar = document.getElementById('calendar');
 const container = document.getElementById('container');
-const newEventModal = document.getElementById('newEventModal');
-const deleteEventModal = document.getElementById('deleteEventModal');
-const backDrop = document.getElementById('modalBackDrop');
-const eventTitleInput = document.getElementById('eventTitleInput');
+const newEventModal = document.getElementById('new-event-modal');
+const deleteEventModal = document.getElementById('delete-event-modal');
+const backDrop = document.getElementById('modal-back-drop');
+const eventTitleInput = document.getElementById('event-title-input');
 const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 const showBtn = document.getElementById('show-calendar-btn').addEventListener('click', () => {
@@ -26,7 +26,7 @@ clicked = date;
 const eventForDay = events.find(e => e.date === clicked);
 
 if (eventForDay) {
-    document.getElementById('eventText').innerText = eventForDay.title;
+    document.getElementById('event-text').innerText = eventForDay.title;
     deleteEventModal.style.display = 'block';
 } else {
     newEventModal.style.display = 'block';
@@ -132,10 +132,10 @@ function initButtons() {
         load();
     });
 
-    document.getElementById('saveButton').addEventListener('click', saveEvent);
-    document.getElementById('cancelButton').addEventListener('click', closeModal);
-    document.getElementById('deleteButton').addEventListener('click', deleteEvent);
-    document.getElementById('closeButton').addEventListener('click', closeModal);
+    document.getElementById('save-btn').addEventListener('click', saveEvent);
+    document.getElementById('cancel-btn').addEventListener('click', closeModal);
+    document.getElementById('delete-btn').addEventListener('click', deleteEvent);
+    document.getElementById('close-btn').addEventListener('click', closeModal);
 }
 
 initButtons();

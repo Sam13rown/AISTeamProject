@@ -7,6 +7,13 @@ button {
   padding: 5px;
   border-radius: 5px;
   color: white;
+  background-color: #247BA0;
+  transition: .3s;
+}
+
+button:hover{
+  color: #247BA0;
+  background-color: white;
 }
 
 #show-calendar-btn{
@@ -17,15 +24,13 @@ button {
 
 #header {
   padding: 10px;
-  color: #d36c6c;
+  color: #fa3939;
   font-size: 26px;
   font-family: sans-serif;
   display: flex;
   justify-content: space-between;
 }
-#header button {
-  background-color:#92a1d1;
-}
+
 #container {
   display: none;
   width: 770px;
@@ -35,6 +40,7 @@ button {
   transform: translate(-50%, -50%);
   z-index: 11;
   background-color: white;
+  border-radius: 5px;
 }
 #weekdays {
   width: 100%;
@@ -85,7 +91,7 @@ button {
   background-color: #FFFCFF !important;
   box-shadow: none !important;
 }
-#newEventModal, #deleteEventModal {
+#new-event-modal, #delete-event-modal {
   display: none;
   z-index: 20;
   padding: 25px;
@@ -98,7 +104,7 @@ button {
   position: absolute;
   font-family: sans-serif;
 }
-#eventTitleInput {
+#event-title-input {
   padding: 10px;
   width: 100%;
   box-sizing: border-box;
@@ -108,19 +114,19 @@ button {
   border: none;
   box-shadow: 0px 0px 3px gray;
 }
-#eventTitleInput.error {
+#event-title-input.error {
   border: 2px solid red;
 }
-#cancelButton, #deleteButton {
-  background-color: #d36c6c;
+#cancel-btn, #delete-btn {
+  background-color: lightcoral;
 }
-#saveButton, #closeButton {
-  background-color: #92a1d1;
+#save-btn, #close-btn {
+  background-color: royalblue;
 }
-#eventText {
+#event-text {
   font-size: 14px;
 }
-#modalBackDrop {
+#modal-back-drop {
   display: none;
   top: 0px;
   left: 0px;

@@ -9,7 +9,7 @@ for(savedTask of tasks){
     let task = savedTask.task;
     let striked = savedTask.striked;
     let taskBox = document.createElement("div");
-    taskBox.classList.add('taskBox');
+    taskBox.classList.add('task-box');
 
     let li = document.createElement('li');
     li.innerText = task;
@@ -50,7 +50,7 @@ for(savedTask of tasks){
 
 addTask.addEventListener('click', function(){
     let taskBox = document.createElement("div");
-    taskBox.classList.add('taskBox');
+    taskBox.classList.add('task-box');
 
     tasks.push({
         task:inputTask.value,
